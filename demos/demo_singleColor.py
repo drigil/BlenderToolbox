@@ -7,12 +7,12 @@ import os
 import numpy as np
 cwd = os.getcwd()
 
-model = "bimba_head_err_neural_003" # bimba_head_err_neural, bimba_head_err_traditional, bimba_head_err_original, bimba_head_err_traditional_regularized_003, bimba_head_err_neural_003
+model = "bimba_scaled" # bimba_head_err_neural, bimba_head_err_traditional, bimba_head_err_original, bimba_head_err_traditional_regularized_003, bimba_head_err_neural_003
 outputPath = os.path.join(cwd, './' + model + '.png') # make it abs path for windows
 
 ## initialize blender
-imgRes_x = 512 # 1024, 1024, 512
-imgRes_y = 512 # 1024, 390, 512
+imgRes_x = 1024 # 1024, 1024, 512
+imgRes_y = 1024 # 1024, 390, 512
 numSamples = 100 
 exposure = 1.5 
 bt.blenderInit(imgRes_x, imgRes_y, numSamples, exposure)
@@ -22,19 +22,19 @@ bpy.context.scene.render.film_transparent = True
 meshPath = '../meshes/' + model + '.obj'
 
 # Full model
-location = (0.83, -0.09, 0.23) # (UI: click mesh > Transform > Location)
-rotation = (58, -15, 77) # (UI: click mesh > Transform > Rotation)
-scale = (1.373,1.373,1.373) # (UI: click mesh > Transform > Scale)
+location = (1.03, 0, 0.91) # (UI: click mesh > Transform > Location)
+rotation = (63, -7, 81) # (UI: click mesh > Transform > Rotation)
+scale = (0.802883,0.802883,0.802883) # (UI: click mesh > Transform > Scale)
 
 # Eye zoom in
-location = (2.12, 0.15, 0.92) # (UI: click mesh > Transform > Location)
-rotation = (53, -46, 51) # (UI: click mesh > Transform > Rotation)
-scale = (1.373,1.373,1.373) # (UI: click mesh > Transform > Scale)
+# location = (2.12, 0.15, 0.92) # (UI: click mesh > Transform > Location)
+# rotation = (53, -46, 51) # (UI: click mesh > Transform > Rotation)
+# scale = (1.373,1.373,1.373) # (UI: click mesh > Transform > Scale)
 
-# Ear zoom in
-location = (2.3, 0.15, 0.99) # (UI: click mesh > Transform > Location)
-rotation = (47, -9, 123) # (UI: click mesh > Transform > Rotation)
-scale = (1.373,1.373,1.373) # (UI: click mesh > Transform > Scale)
+# # Ear zoom in
+# location = (2.3, 0.15, 0.99) # (UI: click mesh > Transform > Location)
+# rotation = (47, -9, 123) # (UI: click mesh > Transform > Rotation)
+# scale = (1.373,1.373,1.373) # (UI: click mesh > Transform > Scale)
 
 
 mesh = bt.readMesh(meshPath, location, rotation, scale)
@@ -47,7 +47,7 @@ bpy.ops.object.shade_smooth()
 
 # # set material (TODO: this has some new issue due to new version of Blender)
 lightGreen = (144./255, 238./255, 144./255, 1)
-meshColor = bt.colorObj(lightGreen, 0.5, 1.0, 1.0, 0.0, 2.0) #  derekBlue, coralRed, lightGreen
+meshColor = bt.colorObj(bt.derekBlue, 0.5, 1.0, 1.0, 0.0, 2.0) #  bt.derekBlue, bt.coralRed, lightGreen
 AOStrength = 0.0
 bt.setMat_singleColor(mesh, meshColor, AOStrength)
 

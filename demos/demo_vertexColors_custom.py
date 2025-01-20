@@ -4,7 +4,7 @@ import os
 import numpy as np
 cwd = os.getcwd()
 
-model = "bimba_head_err_neural_003" # bimba_head_err_neural, bimba_head_err_traditional
+model = "bimba_ngf_err" # bimba_head_err_neural, bimba_head_err_traditional
 outputPath = os.path.join(cwd, './' + model + '_vertex_colors.png') # make it abs path for windows
 
 ## initialize blender
@@ -23,9 +23,12 @@ bpy.context.scene.render.image_settings.color_mode = 'RGBA'
 
 ## read mesh (choose either readPLY or readOBJ)
 meshPath = '../meshes/' + model + '.obj'
-location = (0.83, -0.09, 0.23) # (UI: click mesh > Transform > Location)
-rotation = (58, -15, 77) # (UI: click mesh > Transform > Rotation)
-scale = (1.373,1.373,1.373) # (UI: click mesh > Transform > Scale)
+# location = (0.83, -0.09, 0.23) # (UI: click mesh > Transform > Location)
+# rotation = (58, -15, 77) # (UI: click mesh > Transform > Rotation)
+# scale = (1.373,1.373,1.373) # (UI: click mesh > Transform > Scale)
+location = (1.03, 0, 0.91) # (UI: click mesh > Transform > Location)
+rotation = (63, -7, 81) # (UI: click mesh > Transform > Rotation)
+scale = (0.802883,0.802883,0.802883) # (UI: click mesh > Transform > Scale)
 mesh = bt.readMesh(meshPath, location, rotation, scale)
 
 ## set shading (uncomment one of them)

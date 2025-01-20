@@ -7,30 +7,30 @@ import os
 import numpy as np
 cwd = os.getcwd()
 
-
-outputPath = os.path.join(cwd, './demo_edge.png') # make it abs path for windows
+model = "bimba_simplified_original_scaled" # bimba_head_err_neural, bimba_head_err_traditional, bimba_head_err_original, bimba_head_err_traditional_regularized_003, bimba_head_err_neural_003
+outputPath = os.path.join(cwd, './' + model + '_edge.png') # make it abs path for windows
 
 ## initialize blender
-imgRes_x = 1080 # recommend > 1080 
-imgRes_y = 1080 # recommend > 1080 
-numSamples = 200 # recommend > 200
+imgRes_x = 1024 # recommend > 1080 
+imgRes_y = 1024 # recommend > 1080 
+numSamples = 100 # recommend > 200
 exposure = 1.5 
 bt.blenderInit(imgRes_x, imgRes_y, numSamples, exposure)
 
 ## read mesh (choose either readPLY or readOBJ)
 # meshPath = 'C:/Users/anshu/source/repos/Neural-TSpline/output_obj/spot_cow_head_reconstructed.obj'
-meshPath = 'C:/Users/anshu/source/repos/Neural-TSpline/data/spot_cow_head-20241010T220221Z-001/spot_cow_head/mesh_uv.obj'
+meshPath = '../meshes/' + model + '.obj'
 
-location = (0.457694, 0.216293, 0.121025) # (GUI: click mesh > Transform > Location)
-rotation = (106.883, 6.79254, 255.689) # (GUI: click mesh > Transform > Rotation)
-scale = (1.5,1.5,1.5) # (GUI: click mesh > Transform > Scale)
+location = (1.03, 0, 0.91) # (UI: click mesh > Transform > Location)
+rotation = (63, -7, 81) # (UI: click mesh > Transform > Rotation)
+scale = (0.802883,0.802883,0.802883) # (UI: click mesh > Transform > Scale)
 mesh = bt.readMesh(meshPath, location, rotation, scale)
 
 ## set shading (uncomment one of them)
 bpy.ops.object.shade_smooth() 
 
 ## subdivision
-bt.subdivision(mesh, level = 0)
+# bt.subdivision(mesh, level = 0)
 
 # # set material
 edgeThickness = 0.005
