@@ -11,7 +11,8 @@ cwd = os.getcwd()
 Warning: this function may be obsolete: please check out demo_vertexColors.py and demo_faceColors.py
 """
 
-outputPath = os.path.join(cwd, './demo_vertexColors_ply.png') # make it abs path for windows
+model = "bimba_head_err_neural" # bimba_head_err_neural, bimba_head_err_traditional, bimba_head_err_original
+outputPath = os.path.join(cwd, './' + model + '_vertex_colors.png') # make it abs path for windows
 
 ## initialize blender
 imgRes_x = 480 
@@ -21,17 +22,17 @@ exposure = 1.5
 bt.blenderInit(imgRes_x, imgRes_y, numSamples, exposure)
 
 ## read mesh (choose either readPLY or readOBJ)
-meshPath = '../meshes/spot.ply'
-location = (1.12, -0.14, 0) # (UI: click mesh > Transform > Location)
-rotation = (90, 0, 227) # (UI: click mesh > Transform > Rotation)
-scale = (1.5,1.5,1.5) # (UI: click mesh > Transform > Scale)
+meshPath = '../meshes/' + model + '.obj'
+location = (0.83, -0.09, 0.23) # (UI: click mesh > Transform > Location)
+rotation = (58, -15, 77) # (UI: click mesh > Transform > Rotation)
+scale = (1.373,1.373,1.373) # (UI: click mesh > Transform > Scale)
 mesh = bt.readMesh(meshPath, location, rotation, scale)
 
 ## set shading (uncomment one of them)
 bpy.ops.object.shade_smooth() 
 
 ## subdivision
-bt.subdivision(mesh, level = 2)
+# bt.subdivision(mesh, level = 2)
 
 # # set material (TODO: this has some new issue due to new version of Blender)
 meshVColor = bt.colorObj([], 0.5, 1.0, 1.0, 0.0, 0.0)

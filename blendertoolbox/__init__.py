@@ -91,6 +91,7 @@ royalYellow = (250.0/255,218.0/255,94.0/255, 1)
 white = (1,1,1,1)
 black = (0,0,0,1)
 
+
 # color palette for color blindness (source: http://mkweb.bcgsc.ca/colorblind)
 cb_black = (0/255.0, 0/255.0, 236/255.0, 1)
 cb_orange = (230/255.0, 159/255.0, 0/255.0, 1)

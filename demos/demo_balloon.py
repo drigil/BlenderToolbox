@@ -5,31 +5,53 @@ import blendertoolbox as bt
 import bpy
 import os
 import numpy as np
+import argparse
+
 cwd = os.getcwd()
 
-outputPath = os.path.join(cwd, './demo_balloon.png') # make it abs path for windows
+# Parse through command line arguments
+parser = argparse.ArgumentParser(description="Process some arguments.")
+
+# Add arguments
+# parser.add_argument("mesh_path", type=str, nargs="?", default= '../meshes/spot.ply', help="Path to mesh")
+# parser.add_argument("output_path", type=str, nargs="?", default= './demo_balloon.png', help="Path to output png")
+
+obj_name = "bimba_head_err_traditional_fixed_normals" # bimba_head_err_traditional, bimba_head_err_traditional_fixed_normals
+parser.add_argument("mesh_path", type=str, nargs="?", default= '../meshes/' + obj_name + '.obj', help="Path to mesh")
+parser.add_argument("output_path", type=str, nargs="?", default= './' + obj_name + '.png', help="Path to output png")
+
+
+# Parse the arguments
+args = parser.parse_args()
+
+outputPath = os.path.join(cwd, args.output_path) # make it abs path for windows
+
 
 ## initialize blender
-imgRes_x = 480 
-imgRes_y = 480 
+print("Initialized")
+imgRes_x = 1024
+imgRes_y = 1024
 numSamples = 100 
 exposure = 1.5 
 bt.blenderInit(imgRes_x, imgRes_y, numSamples, exposure)
 
 ## read mesh (choose either readPLY or readOBJ)
-meshPath = '../meshes/spot.ply'
-location = (1.12, -0.14, 0) # (UI: click mesh > Transform > Location)
-rotation = (90, 0, 227) # (UI: click mesh > Transform > Rotation)
-scale = (1.5,1.5,1.5) # (UI: click mesh > Transform > Scale)
+print("Read in Mesh")
+meshPath = args.mesh_path
+location = (0.83, -0.09, 0.23) # (UI: click mesh > Transform > Location)
+rotation = (58, -15, 77) # (UI: click mesh > Transform > Rotation)
+scale = (1.373,1.373,1.373) # (UI: click mesh > Transform > Scale)
 mesh = bt.readMesh(meshPath, location, rotation, scale)
 
 ## set shading (uncomment one of them)
+print("Set Shading")
 bpy.ops.object.shade_smooth() 
 
 ## subdivision
-bt.subdivision(mesh, level = 2)
+# bt.subdivision(mesh, level = 2)
 
 # # set material
+print("Set Material")
 # colorObj(RGBA, H, S, V, Bright, Contrast)
 meshColor = bt.colorObj(bt.derekBlue, 0.5, 1.0, 1.0, 0.0, 2.0)
 AOStrength = 0.0
@@ -58,6 +80,8 @@ bt.shadowThreshold(alphaThreshold = 0.05, interpolationMode = 'CARDINAL')
 
 ## save blender file so that you can adjust parameters in the UI
 bpy.ops.wm.save_mainfile(filepath=os.getcwd() + '/test.blend')
+print("File Saved")
 
 ## save rendering
+print("Start Rendering")
 bt.renderImage(outputPath, cam)

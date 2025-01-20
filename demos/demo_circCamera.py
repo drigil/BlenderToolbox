@@ -10,17 +10,20 @@ cwd = os.getcwd()
 outputHeader = os.path.join(cwd, './demo_circCamera_') # make it abs path for windows
 
 ## initialize blender
-imgRes_x = 480 
-imgRes_y = 480 
-numSamples = 100 
+imgRes_x = 1080 
+imgRes_y = 1080
+numSamples = 200 
 exposure = 1.5 
 bt.blenderInit(imgRes_x, imgRes_y, numSamples, exposure)
 
 ## read mesh (choose either readPLY or readOBJ)
-meshPath = '../meshes/spot.ply'
-location = (1.12, -0.14, 0) # (UI: click mesh > Transform > Location)
-rotation = (90, 0, 227) # (UI: click mesh > Transform > Rotation)
-scale = (1.5,1.5,1.5) # (UI: click mesh > Transform > Scale)
+meshPath = 'C:/Users/anshu/source/repos/Neural-TSpline/output_obj/spot_cow_head_reconstructed.obj'
+# meshPath = 'C:/Users/anshu/source/repos/Neural-TSpline/data/spot_cow_head-20241010T220221Z-001/spot_cow_head/mesh_uv.obj'
+
+location = (-0.682231, 0.397995, -0.397514) # (GUI: click mesh > Transform > Location)
+rotation = (106.883, 0, 245.689) # (GUI: click mesh > Transform > Rotation)
+scale = (1.5,1.5,1.5) # (GUI: click mesh > Transform > Scale)
+
 mesh = bt.readMesh(meshPath, location, rotation, scale)
 
 ## set shading (uncomment one of them)
